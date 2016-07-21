@@ -1,0 +1,53 @@
+# depslib dependency file v1.0
+1467660956 source:c:\users\kevin\documents\asteroid\src\game.cpp
+	"game.h"
+
+1468044727 c:\users\kevin\documents\asteroid\include\game.h
+	<SFML/Graphics.hpp>
+	<vector>
+	"game.h"
+	"Projectile.h"
+	<iostream>
+	<ctime>
+	"stdlib.h"
+	"Obsticle.h"
+	"Ship.h"
+	<string>
+	<sstream>
+	<cmath>
+
+1467663102 source:c:\users\kevin\documents\asteroid\src\main.cpp
+	<SFML/Graphics.hpp>
+	"game.h"
+
+1468009357 c:\users\kevin\documents\asteroid\include\projectile.h
+	<SFML/Graphics.hpp>
+	<iostream>
+
+1467682293 source:c:\users\kevin\documents\asteroid\src\projectile.cpp
+	"Projectile.h"
+
+1467756807 source:c:\users\kevin\documents\asteroid\src\obsticle.c
+
+1467756848 source:c:\users\kevin\documents\asteroid\src\obsticle.cpp
+	"Obsticle.h"
+
+1468009357 c:\users\kevin\documents\asteroid\include\obsticle.h
+	<SFML/Graphics.hpp>
+	"stdlib.h"
+	"time.h"
+	<iostream>
+
+1467954938 source:c:\users\kevin\documents\asteroid\src\ship.cpp
+	"Ship.h"
+
+1468009175 c:\users\kevin\documents\asteroid\include\ship.h
+	<SFML/Graphics.hpp>
+	<iostream>
+
+1468902385 source:c:\users\kevin\documents\asteroid\src\menu.cpp
+	"Menu.h"
+
+1468907157 c:\users\kevin\documents\asteroid\include\menu.h
+	<SFML/Graphics.hpp>
+
