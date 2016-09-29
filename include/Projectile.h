@@ -16,7 +16,7 @@ class Projectile : public sf::CircleShape
 		}
 
 		void updateProjectile(){
-			this->move(0.0, -5.0);
+			this->move(0.0, -1.0);
 		}
 
 

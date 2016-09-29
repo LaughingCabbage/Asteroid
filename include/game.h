@@ -17,14 +17,13 @@
 class game
 {
 	public:
-		game(){
-			gameWindow = new sf::RenderWindow(sf::VideoMode(800, 600), "Asteroid");
-			gameWindow->setFramerateLimit(60);
+		game(sf::RenderWindow* window){
+			//gameWindow = new sf::RenderWindow(sf::VideoMode(800, 600), "Asteroid");
+			//gameWindow->setFramerateLimit(60);
+			this->gameWindow = window;
 			this->gameScore = 0;
 		}
-		~game(){
-			delete gameWindow;
-		}
+		~game(){}
 
 		void setup(){
 			gameState = play;
@@ -42,8 +41,7 @@ class game
 			score.setScale(0.5, 0.5);
 			score.setString("0000000000"); //eight digit score
 			score.setColor(sf::Color::White);
-			//step into game loop
-			gameLoop();
+
 		}
 
 		void gameLoop(){
@@ -54,9 +52,8 @@ class game
 					generateObstacle();
 					updateObstacles();
 					checkCollision();
-				}
-				if(gameState == endLevel){
-					displayMenu();
+				} else if(gameState == endLevel){
+					//displayResults();
 				}
 
 				renderFrame();
@@ -67,7 +64,6 @@ class game
 			//clear frame
 			gameWindow->clear();
 			//handle play state
-			if(gameState == play){
 				//draw projectiles
 				if(!projectiles.empty()){
 					for(std::size_t i = 0; i < projectiles.size(); i++){
@@ -82,7 +78,6 @@ class game
 				}
 				gameWindow->draw(score);
 				gameWindow->draw(ship);
-			}
 			//display changes.
 			gameWindow->display();
 
@@ -95,7 +90,8 @@ class game
 					gameWindow->close();
 			}
 			//check for movement every 200 ms. Limits Ship speed.
-			if(shipMovementClock.getElapsedTime().asMilliseconds() >= 200){
+			if(shipMovementClock.getElapsedTime().asMilliseconds() >= 1 ){
+				shipMovementClock.restart();
 				getMovement();
 			}
 			//fire on space.
@@ -107,11 +103,11 @@ class game
 		void getMovement(){
 			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
 				if(ship.getPosition().x > 20)
-					ship.move(-5.0, 0.0);
+					ship.move(-1.0, 0.0);
 			}
 			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
 				if(ship.getPosition().x < 780)
-					ship.move(5.0, 0.0);
+					ship.move(1.0, 0.0);
 			}
 
 		}
@@ -148,7 +144,8 @@ class game
 		}
 
 		void updateObstacles(){
-			if(!obstacles.empty()){
+			if(!obstacles.empty() && obstacleTimer.getElapsedTime().asSeconds() > 0.015){
+				obstacleTimer.restart();
 				for(std::vector<Obstacle*>::iterator i = obstacles.begin(); i != obstacles.end(); ++i){
 					//delete obsticles out of bounds
 					(*i)->move(0, 5.0);
@@ -224,6 +221,7 @@ class game
 
 		void updateProjectiles(){
 			if(!projectiles.empty()){
+				obsticleTimer.restart();
 				for(std::vector<Projectile*>::iterator i = projectiles.begin(); i != projectiles.end(); ++i){
 						(*i)->updateProjectile();
 					if((*i)->getPosition().y < 0.0){
@@ -241,9 +239,10 @@ class game
 			}
 		}
 
-		void displayMenu(){
-
+		void displayResults(){
+			std::cout<<"displaying results\n";
 		}
+
 
 	private:
 		enum GameState{play, pause, endLevel, exit};
@@ -252,6 +251,7 @@ class game
 		Ship ship;
 		sf::Clock shipMovementClock;
 		sf::Clock fireRateClock;
+		sf::Clock obsticleTimer;
 		sf::RectangleShape projectile;
 		std::vector<Projectile*> projectiles;
 		std::vector<Obstacle*> obstacles;
