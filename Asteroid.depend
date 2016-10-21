@@ -62,7 +62,7 @@
 1473824646 source:c:\users\kevin\documents\asteroid\src\hsmanager.cpp
 	"hsManager.h"
 
-1473825912 c:\users\kevin\documents\asteroid\include\hsmanager.h
+1473826097 c:\users\kevin\documents\asteroid\include\hsmanager.h
 	<SFML/Graphics.hpp>
 	<iostream>
 	<fstream>
