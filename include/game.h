@@ -5,6 +5,7 @@
 #include "game.h"
 #include "Projectile.h"
 #include <iostream>
+#include "Menu.h"
 #include <ctime>
 #include "stdlib.h"
 #include "Obstacle.h"
@@ -18,33 +19,19 @@ class Game
 {
 	public:
 		Game(sf::RenderWindow* window);
-
 		~Game();
-
 		void setup();
-
 		void gameLoop();
-
 		void renderFrame();
-
 		void parseInput();
-
 		void getMovement();
-
 		void fireProjectile();
-
 		void generateObstacle();
-
 		void updateObstacles();
-
 		void checkCollision();
-
 		void updateScore(int ammount);
-
 		void updateProjectiles();
-
 		void displayResults();
-
 
 	private:
 		enum GameState{play, pause, endLevel, exit};
@@ -58,7 +45,6 @@ class Game
 		sf::RectangleShape projectile;
 		std::vector<Projectile*> projectiles;
 		std::vector<Obstacle*> obstacles;
-
 		sf::Clock obstacleTimer;
 		sf::Text score;
 		sf::Font gameFont;

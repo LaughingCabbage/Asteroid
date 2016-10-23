@@ -24,7 +24,7 @@ class MenuButton{
 class Menu
 {
 	public:
-		Menu(sf::RenderWindow* window);
+		Menu(sf::RenderWindow *window);
 		~Menu();
 		void setup();
 		void addOption(std::string option, sf::Vector2f position);
@@ -34,6 +34,7 @@ class Menu
 		void playGame();
 		void selectOption();
 		void parseMenuInput();
+		void setWindow(sf::RenderWindow* window);
 
 	private:
 		sf::RenderWindow* menuWindow;

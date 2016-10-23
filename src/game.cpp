@@ -50,8 +50,8 @@ void Game::gameLoop(){
             generateObstacle();
             updateObstacles();
             checkCollision();
-        } else if(gameState == endLevel){
-            //displayResults();
+        } else if(gameState == exit){
+            return;
         }
         renderFrame();
     }
@@ -197,7 +197,7 @@ void Game::checkCollision(){
             std::cout << "ship collision.\n";
             ship.updateLives(-1);
             if(ship.getLives() == 0)
-                gameState = endLevel;
+                gameState = exit;
             if((*obstIt) != NULL){
                 delete (*obstIt);
             }
