@@ -102,7 +102,7 @@ void Menu::selectDown(){
 }
 
 void Menu::playGame(){
-    game Asteroid(menuWindow);
+    Game Asteroid(menuWindow);
     Asteroid.setup();
     Asteroid.gameLoop();
 }
