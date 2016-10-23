@@ -70,7 +70,7 @@
 1475179499 source:c:\users\genti\documents\gitrepos\asteroid\src\game.cpp
 	"game.h"
 
-1477187483 c:\users\genti\documents\gitrepos\asteroid\include\game.h
+1477190115 c:\users\genti\documents\gitrepos\asteroid\include\game.h
 	<SFML/Graphics.hpp>
 	<vector>
 	"game.h"
@@ -78,7 +78,7 @@
 	<iostream>
 	<ctime>
 	"stdlib.h"
-	"Obsticle.h"
+	"Obstacle.h"
 	"Ship.h"
 	<string>
 	<sstream>
@@ -132,4 +132,10 @@
 
 1477188540 source:c:\users\genti\documents\gitrepos\asteroid\src\ship.cpp
 	"Ship.h"
+
+1477189415 c:\users\genti\documents\gitrepos\asteroid\include\obstacle.h
+	<SFML/Graphics.hpp>
+	"stdlib.h"
+	"time.h"
+	<iostream>
 

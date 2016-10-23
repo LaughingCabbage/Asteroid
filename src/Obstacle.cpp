@@ -1,4 +1,4 @@
-#include "Obsticle.h"
+#include "Obstacle.h"
 
 Obstacle::Obstacle(){
     srand(time(NULL));

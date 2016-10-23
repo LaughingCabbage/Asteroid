@@ -7,7 +7,7 @@
 #include <iostream>
 #include <ctime>
 #include "stdlib.h"
-#include "Obsticle.h"
+#include "Obstacle.h"
 #include "Ship.h"
 #include <string>
 #include <sstream>
