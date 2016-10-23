@@ -20,11 +20,13 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+--------------------------------------------------------------------------
 
 
-ASTEROID
 CREATED BY KEVIN GENTILE
 
 This project is compiled using MINGW in a Code::Blocks environment
 and used the SFML 2.4.0 library. This project is currently under
 development. 
+
+Contact: gentile_kevin94@hotmail.com 
