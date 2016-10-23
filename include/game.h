@@ -37,7 +37,21 @@ class game
 			if(!gameFont.loadFromFile("pixelmix.ttf"))
 				std::cout << "pixelmix font failed to load.\n";
 			score.setFont(gameFont);
-			score.setPosition(680, 580);
+
+            int livesStartX = 700;
+			int livesStartY = 575;
+			ship.setPosition(livesStartX, livesStartY);
+			shipLives.push_back(ship);
+			ship.setPosition(livesStartX + ship.getTextureRect().width, livesStartY);
+			shipLives.push_back(ship);
+			ship.setPosition(livesStartX + (2*ship.getTextureRect().width), livesStartY);
+			shipLives.push_back(ship);
+			for(std::size_t i = 0; i < 3; i++){
+                shipLives.at(i).scale(.8,.8);
+			}
+			//set beginning position
+			ship.setPosition(400.0, 500.0);
+
 			score.setScale(0.5, 0.5);
 			score.setString("0000000000"); //eight digit score
 			score.setColor(sf::Color::White);
@@ -55,7 +69,6 @@ class game
 				} else if(gameState == endLevel){
 					//displayResults();
 				}
-
 				renderFrame();
 			}
 		}
@@ -76,6 +89,11 @@ class game
 						gameWindow->draw(*obstacles[i]);
 					}
 				}
+
+				for(std::size_t i = 0; i < ship.getLives(); i++){
+                    gameWindow->draw(shipLives.at(i));
+				}
+
 				gameWindow->draw(score);
 				gameWindow->draw(ship);
 			//display changes.
@@ -249,6 +267,7 @@ class game
 		GameState gameState;
 		sf::RenderWindow *gameWindow;
 		Ship ship;
+		std::vector<Ship> shipLives;
 		sf::Clock shipMovementClock;
 		sf::Clock fireRateClock;
 		sf::Clock obsticleTimer;

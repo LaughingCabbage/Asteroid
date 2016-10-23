@@ -67,3 +67,69 @@
 	<iostream>
 	<fstream>
 
+1475179499 source:c:\users\genti\documents\gitrepos\asteroid\src\game.cpp
+	"game.h"
+
+1477187483 c:\users\genti\documents\gitrepos\asteroid\include\game.h
+	<SFML/Graphics.hpp>
+	<vector>
+	"game.h"
+	"Projectile.h"
+	<iostream>
+	<ctime>
+	"stdlib.h"
+	"Obsticle.h"
+	"Ship.h"
+	<string>
+	<sstream>
+	<cmath>
+
+1475179499 c:\users\genti\documents\gitrepos\asteroid\include\projectile.h
+	<SFML/Graphics.hpp>
+	<iostream>
+
+1477189415 c:\users\genti\documents\gitrepos\asteroid\include\obsticle.h
+	<SFML/Graphics.hpp>
+	"stdlib.h"
+	"time.h"
+	<iostream>
+
+1477188562 c:\users\genti\documents\gitrepos\asteroid\include\ship.h
+	<SFML/Graphics.hpp>
+	<iostream>
+
+1475179499 source:c:\users\genti\documents\gitrepos\asteroid\src\gamestate.cpp
+	"GameState.h"
+
+1475179499 c:\users\genti\documents\gitrepos\asteroid\include\gamestate.h
+
+1475179499 source:c:\users\genti\documents\gitrepos\asteroid\src\hsmanager.cpp
+	"hsManager.h"
+
+1475179499 c:\users\genti\documents\gitrepos\asteroid\include\hsmanager.h
+	<SFML/Graphics.hpp>
+	<iostream>
+	<fstream>
+
+1475179499 source:c:\users\genti\documents\gitrepos\asteroid\src\main.cpp
+	<SFML/Graphics.hpp>
+	"game.h"
+	"Menu.h"
+
+1477188463 c:\users\genti\documents\gitrepos\asteroid\include\menu.h
+	<SFML/Graphics.hpp>
+	<iostream>
+	"game.h"
+
+1477188420 source:c:\users\genti\documents\gitrepos\asteroid\src\menu.cpp
+	"Menu.h"
+
+1477189063 source:c:\users\genti\documents\gitrepos\asteroid\src\obsticle.cpp
+	"Obsticle.h"
+
+1475179499 source:c:\users\genti\documents\gitrepos\asteroid\src\projectile.cpp
+	"Projectile.h"
+
+1477188540 source:c:\users\genti\documents\gitrepos\asteroid\src\ship.cpp
+	"Ship.h"
+
