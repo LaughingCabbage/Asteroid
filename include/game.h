@@ -13,6 +13,7 @@
 #include <string>
 #include <sstream>
 #include <cmath>
+#include "hsManager.h"
 
 
 class Game
@@ -50,6 +51,8 @@ class Game
 		sf::Font gameFont;
 		sf::Texture shipTextures;
 		int gameScore;
+		hsManager highScores;
+
 
 };
 

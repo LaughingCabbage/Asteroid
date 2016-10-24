@@ -40,6 +40,8 @@ void Game::setup(){
     score.setString("0000000000"); //eight digit score
     score.setColor(sf::Color::White);
 
+    highScores.setWindow(gameWindow);
+
 }
 
 void Game::gameLoop(){
@@ -51,6 +53,7 @@ void Game::gameLoop(){
             updateObstacles();
             checkCollision();
         } else if(gameState == exit){
+
             return;
         }
         renderFrame();

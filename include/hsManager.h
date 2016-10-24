@@ -9,9 +9,9 @@
 class hsManager
 {
 	public:
-		hsManager(sf::RenderWindow *rwindow){
+		hsManager(){
 		//ctor
-			this->window = rwindow;
+		//	this->window = rwindow;
 		}
 
 		~hsManager(){
@@ -20,6 +20,10 @@ class hsManager
 
 		void setup(){
 			m_font.loadFromFile("pixelmix.tff");
+		}
+
+		void setWindow(sf::RenderWindow *rwindow){
+            window = rwindow;
 		}
 
 		void loadScores(){
