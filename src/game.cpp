@@ -130,8 +130,9 @@ void Game::generateObstacle(){
     //seed random number generator
     srand(time(NULL));
     //generate obstacle at 25% chance per second
-    int generationRate = rand() % 100 + 1;
-    if(obstacleTimer.getElapsedTime().asSeconds() > 1 && generationRate ){
+
+    if(generationRate.getElapsedTime().asSeconds() > 1 ){
+        generationRate.restart();
         //std::cout<< "Generating Obstacle\n";
         obstacleTimer.restart();
         Obstacle *obstacle;
@@ -151,7 +152,7 @@ void Game::updateObstacles(){
     if(!obstacles.empty() && obstacleTimer.getElapsedTime().asSeconds() > 0.015){
         obstacleTimer.restart();
         for(std::vector<Obstacle*>::iterator i = obstacles.begin(); i != obstacles.end(); ++i){
-            //delete obsticles out of bounds
+            //delete obstacles out of bounds
             (*i)->move(0, 5.0);
             if((*i)->getPosition().y > 600){
                 Obstacle *obj = (*i);

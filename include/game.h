@@ -43,6 +43,7 @@ class Game
 		sf::Clock shipMovementClock;
 		sf::Clock fireRateClock;
 		sf::Clock obsticleTimer;
+		sf::Clock generationRate;
 		sf::RectangleShape projectile;
 		std::vector<Projectile*> projectiles;
 		std::vector<Obstacle*> obstacles;
