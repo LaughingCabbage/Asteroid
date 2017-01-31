@@ -11,7 +11,6 @@ class hsManager
 	public:
 		hsManager(){
 		//ctor
-		//	this->window = rwindow;
 		}
 
 		~hsManager(){

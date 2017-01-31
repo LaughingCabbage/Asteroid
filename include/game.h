@@ -25,14 +25,14 @@ class Game
 		void gameLoop();
 		void renderFrame();
 		void parseInput();
-		void getMovement();
+		void getMovement(); //from user
 		void fireProjectile();
 		void generateObstacle();
 		void updateObstacles();
 		void checkCollision();
 		void updateScore(int ammount);
 		void updateProjectiles();
-		void displayResults();
+		void displayResults();  //not doing anything atm
 
 	private:
 		enum GameState{play, pause, endLevel, exit};

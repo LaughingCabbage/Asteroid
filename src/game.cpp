@@ -53,7 +53,6 @@ void Game::gameLoop(){
             updateObstacles();
             checkCollision();
         } else if(gameState == exit){
-
             return;
         }
         renderFrame();
