@@ -15,7 +15,7 @@ by configuring with cmake and compiling the tree with mingw32-make.
 Contact: gentile_kevin94@hotmail.com 
 
 
-##Before
+##Menu
 ![Screenshot: Menu](in_game1.png?raw=true "Menu")
-##After
+##Game
 ![Screenshot: Game](in_game2.png?raw=true "Game")
