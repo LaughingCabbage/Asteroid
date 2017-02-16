@@ -25,7 +25,7 @@ class hsManager
 		void writeScore(int player_score, std::string player_name){
             std::ofstream ofs("hsList.dat", std::ios::app);
             if(ofs.is_open()){
-                ofs << player_name << "\t" << player_score << "\n";
+                ofs << player_name << " " << player_score << "\n";
             }
             ofs.close();
 		}

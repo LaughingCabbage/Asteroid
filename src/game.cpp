@@ -63,7 +63,7 @@ void Game::gameLoop(int &player_score, std::string &player_name){
             player_score = gameScore;
             player_name = playerName;
             sf::Clock clk;
-            while(clk.getElapsedTime().asSeconds() < 0.5); //1 second delay to avoid hitting play again upon menu load
+            while(clk.getElapsedTime().asSeconds() < 0.5); //1 second delay to avoid hitting play immediately after entering name
 
             return;
         }
@@ -283,6 +283,9 @@ void Game::displayDeath(){
     while(int(deathClock.getElapsedTime().asSeconds()) < DEADTIME){ //METAL
         gameWindow->clear();
         gameWindow->draw(boom);
+        for(int i = 0; i < ship.getLives(); i++){
+            gameWindow->draw(shipLives[i]);
+        }
         gameWindow->display();
     }
 }
@@ -319,13 +322,10 @@ void Game::getName(){
 
     sf::Text nameBuffer(playerName, gameFont);
     nameBuffer.setCharacterSize(16);
-    nameBuffer.setPosition(box.getPosition().y - 130, box.getPosition().x - 40);
+    nameBuffer.setPosition(box.getPosition().y - 130, box.getPosition().x);
     nameBuffer.setColor(sf::Color::Magenta);
-
-    //sf::Clock nameClock;
-
-    playerName = "Name";
     nameBuffer.setString(playerName);
+
     //poll user input of text
     bool flag = false;
     while(!flag){
@@ -335,14 +335,13 @@ void Game::getName(){
         gameWindow->draw(nameBuffer);
         gameWindow->display();
 
-
         sf::Event event;
         while(gameWindow->pollEvent(event)){
             switch(event.type){
 
                 case sf::Event::TextEntered:
                     sf::String temp = nameBuffer.getString();
-                    if(event.text.unicode == 0x08 && temp.getSize() > 0){ //backspace removes a character
+                    if(event.text.unicode == 0x08 && (temp.getSize() > 0 && temp.getSize() <= 12)){ //backspace removes a character
                         temp.erase(temp.getSize()-1, 1);
                         nameBuffer.setString(temp);
                         playerName = nameBuffer.getString();
@@ -356,8 +355,7 @@ void Game::getName(){
                 //end Text Entered
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return)){
-                        flag = true;
+            flag = true;
         }
-        std::cout << nameBuffer.getString().toAnsiString() << std::endl;
     }
 }

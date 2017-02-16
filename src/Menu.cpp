@@ -108,7 +108,10 @@ void Menu::playGame(){
     Game Asteroid(menuWindow);
     Asteroid.setup();
     Asteroid.gameLoop(player_score, player_name);
-    HsManager.writeScore(player_score, player_name);
+    if(player_name.size() >= 2){
+        std::cout << "name okay\n";
+        HsManager.writeScore(player_score, player_name);
+    }
 }
 
 void Menu::selectOption(){
