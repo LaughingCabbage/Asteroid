@@ -33,6 +33,8 @@ class Game
 		void updateProjectiles();
 		void displayResults();  //not doing anything atm
 		void displayDeath();
+		void gameOver();
+        void getName();
 
 	private:
 		enum GameState{play, pause, endLevel, exit};
@@ -54,6 +56,7 @@ class Game
 		sf::Font gameFont;
 		sf::Texture shipTextures;
 		int gameScore;
+		std::string playerName;
 		//hsManager highScores;
 
 

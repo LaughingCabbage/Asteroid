@@ -59,16 +59,15 @@ void Game::gameLoop(int &player_score, std::string &player_name){
             updateObstacles();
             checkCollision();
         } else if(gameState == exit){
-            //it feels weird having this texture here but mmk.
-            sf::Texture game_over_texture;
-            //boom_texture.loadFromFile();
-            //ship.goBoom();
+            gameOver();
+            player_score = gameScore;
+            player_name = playerName;
+            sf::Clock clk;
+            while(clk.getElapsedTime().asSeconds() < 0.5); //1 second delay to avoid hitting play again upon menu load
+
             return;
         }
         renderFrame();
-        player_score = gameScore;
-
-        //need to read in player name!!
     }
 }
 
@@ -286,7 +285,79 @@ void Game::displayDeath(){
         gameWindow->draw(boom);
         gameWindow->display();
     }
+}
 
+void Game::gameOver(){
+
+    sf::Sprite lose;
+        std::string str = "GAME OVER";
+        sf::Text txt(str, gameFont);
+        txt.setPosition(gameWindow->getSize().y-gameWindow->getSize().y/2, gameWindow->getSize().x/2);
+
+    sf::Clock game_over_clock;
+    while(int(game_over_clock.getElapsedTime().asSeconds()) < DEADTIME*2){
+        gameWindow->clear();
+        gameWindow->draw(txt);
+        gameWindow->display();
+
+    }
+
+    getName();
 
 }
 
+void Game::getName(){
+    sf::RectangleShape box(sf::Vector2f(300, 100));
+    box.setFillColor(sf::Color::Yellow);
+    box.setOrigin(box.getSize().y/2, box.getSize().x/2);
+    box.setPosition(gameWindow->getSize().y/2, gameWindow->getSize().x/2);
+    sf::Text displayText("Enter your name: ", gameFont);
+    displayText.setCharacterSize(14);
+    displayText.setColor(sf::Color::Red);
+    displayText.setPosition(box.getPosition().y - 140, box.getPosition().x - 40);
+
+
+    sf::Text nameBuffer(playerName, gameFont);
+    nameBuffer.setCharacterSize(16);
+    nameBuffer.setPosition(box.getPosition().y - 130, box.getPosition().x - 40);
+    nameBuffer.setColor(sf::Color::Magenta);
+
+    //sf::Clock nameClock;
+
+    playerName = "Name";
+    nameBuffer.setString(playerName);
+    //poll user input of text
+    bool flag = false;
+    while(!flag){
+        gameWindow->clear();
+        gameWindow->draw(box);
+        gameWindow->draw(displayText);
+        gameWindow->draw(nameBuffer);
+        gameWindow->display();
+
+
+        sf::Event event;
+        while(gameWindow->pollEvent(event)){
+            switch(event.type){
+
+                case sf::Event::TextEntered:
+                    sf::String temp = nameBuffer.getString();
+                    if(event.text.unicode == 0x08 && temp.getSize() > 0){ //backspace removes a character
+                        temp.erase(temp.getSize()-1, 1);
+                        nameBuffer.setString(temp);
+                        playerName = nameBuffer.getString();
+                    }else if(event.text.unicode != 0x08){
+                        sf::String character(static_cast<char>(event.text.unicode)); //letter adds a character
+                        temp += character;
+                        nameBuffer.setString(temp);
+                        playerName = nameBuffer.getString();
+                    }
+            }
+                //end Text Entered
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return)){
+                        flag = true;
+        }
+        std::cout << nameBuffer.getString().toAnsiString() << std::endl;
+    }
+}

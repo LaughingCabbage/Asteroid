@@ -115,7 +115,6 @@ void Menu::selectOption(){
     switch(menuOptions){
         case play:
             playGame();
-
         break;
         case score:
             //score
