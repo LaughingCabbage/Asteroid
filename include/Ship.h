@@ -8,6 +8,7 @@ class Ship : public sf::Sprite
 	public:
 		Ship();
 		~Ship();
+
 		int getLives();
 		void updateLives(int delta);
 

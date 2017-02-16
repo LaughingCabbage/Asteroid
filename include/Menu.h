@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "game.h"
+#include "hsManager.h"
 
 
 enum menuOption{play, score, options};
@@ -43,6 +44,7 @@ class Menu
 		menuOption menuOptions;
 		sf::Clock inputClock;
 		float inputRate;
+		hsManager HsManager;
 
 
 };

@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 
+
 class hsManager
 {
 	public:
@@ -21,12 +22,22 @@ class hsManager
 			m_font.loadFromFile("pixelmix.tff");
 		}
 
+		void writeScore(int player_score, std::string player_name){
+            std::ofstream ofs("hsList.dat", std::ios::app);
+            if(ofs.is_open()){
+                ofs << player_name << "\t" << player_score << "\n";
+            }
+            ofs.close();
+		}
+
+
 		void setWindow(sf::RenderWindow *rwindow){
             window = rwindow;
 		}
 
 		void loadScores(){
-			std::ifstream ifs("hsList.dat");
+			std::ifstream ifs;
+			ifs.open("hsList.dat");
 			if(ifs.is_open()){
 				std::string buffer;
 				while(std::getline(ifs, buffer)){
@@ -35,6 +46,7 @@ class hsManager
 				}
 			}
 		}
+
 		void display(){
 			window->clear();
 
@@ -52,5 +64,7 @@ class hsManager
 		sf::Font m_font;
 		std::vector<sf::Text> scores;
 };
+
+
 
 #endif // HSMANAGER_H

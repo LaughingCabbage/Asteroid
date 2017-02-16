@@ -1,5 +1,7 @@
 #include "game.h"
+#include <SFML/System.hpp>
 
+#define DEADTIME 1 //as seconds
 
 Game::Game(sf::RenderWindow* window){
     //gameWindow = new sf::RenderWindow(sf::VideoMode(800, 600), "Asteroid");
@@ -17,6 +19,9 @@ void Game::setup(){
     ship.setTextureRect(sf::IntRect(161, 303, 29, 31));
     ship.setPosition(400.0, 500.0);
     ship.setOrigin((ship.getLocalBounds().width)/2, (ship.getLocalBounds()).height/2);
+
+    //ship.loadShip();
+
     projectile.setFillColor(sf::Color::White);
     if(!gameFont.loadFromFile("pixelmix.ttf"))
         std::cout << "pixelmix font failed to load.\n";
@@ -40,22 +45,30 @@ void Game::setup(){
     score.setString("0000000000"); //eight digit score
     score.setColor(sf::Color::White);
 
-    highScores.setWindow(gameWindow);
+    //highScores.setWindow(gameWindow);
 
 }
 
-void Game::gameLoop(){
+void Game::gameLoop(int &player_score, std::string &player_name){
     while (gameWindow->isOpen()){
         parseInput();
         if(gameState == play){
+            //looks like a good place to implement some multithreading...
             updateProjectiles();
             generateObstacle();
             updateObstacles();
             checkCollision();
         } else if(gameState == exit){
+            //it feels weird having this texture here but mmk.
+            sf::Texture game_over_texture;
+            //boom_texture.loadFromFile();
+            //ship.goBoom();
             return;
         }
         renderFrame();
+        player_score = gameScore;
+
+        //need to read in player name!!
     }
 }
 
@@ -64,24 +77,24 @@ void Game::renderFrame(){
     gameWindow->clear();
     //handle play state
         //draw projectiles
-        if(!projectiles.empty()){
-            for(std::size_t i = 0; i < projectiles.size(); i++){
-                gameWindow->draw(*projectiles[i]);
-            }
+    if(!projectiles.empty()){
+        for(std::size_t i = 0; i < projectiles.size(); i++){
+            gameWindow->draw(*projectiles[i]);
         }
-        //draw obsticles
-        if(!obstacles.empty()){
-            for(std::size_t i = 0; i < obstacles.size(); i++){
-                gameWindow->draw(*obstacles[i]);
-            }
+    }
+    //draw obsticles
+    if(!obstacles.empty()){
+        for(std::size_t i = 0; i < obstacles.size(); i++){
+            gameWindow->draw(*obstacles[i]);
         }
+    }
 
-        for(std::size_t i = 0; i < ship.getLives(); i++){
-            gameWindow->draw(shipLives.at(i));
-        }
+    for(std::size_t i = 0; i < ship.getLives(); i++){
+        gameWindow->draw(shipLives.at(i));
+    }
 
-        gameWindow->draw(score);
-        gameWindow->draw(ship);
+    gameWindow->draw(score);
+    gameWindow->draw(ship);
     //display changes.
     gameWindow->display();
 
@@ -199,12 +212,19 @@ void Game::checkCollision(){
         if((*obstIt)->getGlobalBounds().intersects(ship.getGlobalBounds())){
             std::cout << "ship collision.\n";
             ship.updateLives(-1);
+
             if(ship.getLives() == 0)
                 gameState = exit;
+
+            //cleanup so you don't get merked again
             if((*obstIt) != NULL){
                 delete (*obstIt);
             }
             obstacles.erase(obstIt);
+
+            //another one bites the dust.
+            displayDeath();
+
             break;
         }
     }
@@ -247,3 +267,26 @@ void Game::updateProjectiles(){
 void Game::displayResults(){
     std::cout<<"displaying results\n";
 }
+
+void Game::displayDeath(){
+    sf::Texture boom_texture;
+    std::string file_name = "boom.png";
+    sf::Sprite boom;
+    if(!boom_texture.loadFromFile("boom.png")){
+        std::cout << "failed to load boom\n";
+    }else{
+        boom.setTexture(boom_texture);
+        boom.setPosition(ship.getPosition().x, ship.getPosition().y);
+    }
+
+    //delay between deaths
+    sf::Clock deathClock;
+    while(int(deathClock.getElapsedTime().asSeconds()) < DEADTIME){ //METAL
+        gameWindow->clear();
+        gameWindow->draw(boom);
+        gameWindow->display();
+    }
+
+
+}
+

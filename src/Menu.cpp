@@ -1,4 +1,5 @@
 #include "Menu.h"
+#include "hsManager.h"
 
 MenuButton::MenuButton(sf::Text& text, sf::RectangleShape& box){
     this->buttonText = text;
@@ -102,15 +103,19 @@ void Menu::selectDown(){
 }
 
 void Menu::playGame(){
+    int player_score;
+    std::string player_name = "LaughingCabbage";
     Game Asteroid(menuWindow);
     Asteroid.setup();
-    Asteroid.gameLoop();
+    Asteroid.gameLoop(player_score, player_name);
+    HsManager.writeScore(player_score, player_name);
 }
 
 void Menu::selectOption(){
     switch(menuOptions){
         case play:
             playGame();
+
         break;
         case score:
             //score

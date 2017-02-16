@@ -2,7 +2,6 @@
 #define GAME_H
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include "game.h"
 #include "Projectile.h"
 #include <iostream>
 #include "Menu.h"
@@ -22,7 +21,7 @@ class Game
 		Game(sf::RenderWindow* window);
 		~Game();
 		void setup();
-		void gameLoop();
+		void gameLoop(int &player_score, std::string &player_name);
 		void renderFrame();
 		void parseInput();
 		void getMovement(); //from user
@@ -33,6 +32,7 @@ class Game
 		void updateScore(int ammount);
 		void updateProjectiles();
 		void displayResults();  //not doing anything atm
+		void displayDeath();
 
 	private:
 		enum GameState{play, pause, endLevel, exit};
@@ -40,6 +40,8 @@ class Game
 		sf::RenderWindow *gameWindow;
 		Ship ship;
 		std::vector<Ship> shipLives;
+
+
 		sf::Clock shipMovementClock;
 		sf::Clock fireRateClock;
 		sf::Clock obsticleTimer;
@@ -52,7 +54,7 @@ class Game
 		sf::Font gameFont;
 		sf::Texture shipTextures;
 		int gameScore;
-		hsManager highScores;
+		//hsManager highScores;
 
 
 };
