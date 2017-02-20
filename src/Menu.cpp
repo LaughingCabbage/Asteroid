@@ -114,13 +114,20 @@ void Menu::playGame(){
     }
 }
 
+void Menu::showHighScore(){
+    HsManager.loadScores();
+    HsManager.setWindow(menuWindow);
+    HsManager.display();
+
+}
+
 void Menu::selectOption(){
     switch(menuOptions){
         case play:
             playGame();
         break;
         case score:
-            //score
+            showHighScore();
         break;
         case options:
             //options

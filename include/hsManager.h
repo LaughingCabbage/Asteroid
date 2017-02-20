@@ -36,33 +36,67 @@ class hsManager
 		}
 
 		void loadScores(){
+		    std::cout << "loading scores\n";
 			std::ifstream ifs;
 			ifs.open("hsList.dat");
 			if(ifs.is_open()){
-				std::string buffer;
-				while(std::getline(ifs, buffer)){
-					sf::Text(buffer);
-					scores.push_back(buffer);
+				std::string buffer = "";
+				while(!ifs.eof()){
+                    ifs >> buffer;
+                    names.push_back(sf::Text(buffer, m_font));
+                    ifs >> buffer;
+                    scores.push_back(sf::Text(buffer, m_font));
 				}
+				ifs.close();
 			}
 		}
 
 		void display(){
-			window->clear();
+		    std:: cout << "displaying\n";
 
-			///draw scores
-			if(!scores.empty()){
-				for(size_t i = 0; i < scores.size(); ++i){
-					window->draw(scores[i]);
-				}
+            int top = 0;
+            float upperLeftX = 150;
+            float upperLeftY = 100;
+            for(int i = 0; i < scores.size(); i++){
+                std::cout << "setting score " << i+1 << std::endl;
+                names.at(i).setPosition(sf::Vector2f(upperLeftX, upperLeftY));
+                scores.at(i).setPosition(sf::Vector2f(upperLeftX+100, upperLeftY));
+                upperLeftY += 50;
+                if(upperLeftY > 600) break;
+                if(upperLeftX > 600) break;
+                top++;
+            }
+            std::cout << "TOP = " << top << std::endl;
+
+
+            int flag = 0;
+            while(!flag){
+                window->clear();
+
+                ///draw scores
+                if(!scores.empty()){
+                    for(size_t i = 0; i < top; ++i){
+                        window->draw(scores[i]);
+                        window->draw(names[i]);
+                    }
+                }
+                window->display();
+
+                sf::Event event;
+                while(window->pollEvent(event)){
+                    if((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Escape)){
+                        flag = 1;
+                    }
+
+                }
 			}
-			window->display();
 		}
 
 	private:
 		sf::RenderWindow *window;
 		sf::Font m_font;
 		std::vector<sf::Text> scores;
+		std::vector<sf::Text> names;
 };
 
 

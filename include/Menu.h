@@ -33,6 +33,7 @@ class Menu
 		void selectUp();
 		void selectDown();
 		void playGame();
+		void showHighScore();
 		void selectOption();
 		void parseMenuInput();
 		void setWindow(sf::RenderWindow* window);
