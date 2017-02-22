@@ -44,6 +44,8 @@ void Menu::setup(){
     if(!menuFont.loadFromFile("pixelmix.ttf")){
         std::cout << "font load error\n";
     }
+    HsManager.setWindow(menuWindow);
+    HsManager.setup();
     addOption("Play", sf::Vector2f(400,150));
     addOption("Score", sf::Vector2f(400, 300));
     addOption("Options", sf::Vector2f(400, 450));
@@ -116,7 +118,6 @@ void Menu::playGame(){
 
 void Menu::showHighScore(){
     HsManager.loadScores();
-    HsManager.setWindow(menuWindow);
     HsManager.display();
 
 }

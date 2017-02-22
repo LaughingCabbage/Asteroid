@@ -19,7 +19,9 @@ class hsManager
 		}
 
 		void setup(){
-			m_font.loadFromFile("pixelmix.tff");
+			if(!m_font.loadFromFile("pixelmix.tff")){
+                std::cout << "failed to load font\n";
+			}
 		}
 
 		void writeScore(int player_score, std::string player_name){
@@ -35,6 +37,7 @@ class hsManager
             window = rwindow;
 		}
 
+
 		void loadScores(){
 		    std::cout << "loading scores\n";
 			std::ifstream ifs;
@@ -43,31 +46,44 @@ class hsManager
 				std::string buffer = "";
 				while(!ifs.eof()){
                     ifs >> buffer;
-                    names.push_back(sf::Text(buffer, m_font));
+                    sf::String str(buffer);
+                    names.push_back(sf::Text(str, m_font));
                     ifs >> buffer;
-                    scores.push_back(sf::Text(buffer, m_font));
+                    sf::String str2(buffer);
+                    scores.push_back(sf::Text(str2, m_font));
 				}
+				std::cout << "done loading scores\n";
 				ifs.close();
+
+                float upperLeftX = 150;
+                float upperLeftY = 100;
+                for(int i = 0; i < names.size(); i++){
+                    std::cout << "setting score " << i+1 << std::endl;
+                    names.at(i).setPosition(sf::Vector2f(upperLeftX, upperLeftY));
+                    scores.at(i).setPosition(sf::Vector2f(upperLeftX+100, upperLeftY));
+                    names[i].setCharacterSize(10);
+                    scores[i].setCharacterSize(10);
+                    upperLeftY += 50;
+                    if(upperLeftY > 600) break;
+                    if(upperLeftX > 600) break;
+                }
+
+                for(int i = 0; i < names.size(); ++i){
+                    names[i].setColor(sf::Color::Yellow);
+                    scores[i].setColor(sf::Color::Yellow);
+                    int flag = 0;
+                    if (names[i].getColor() == sf::Color::Yellow)
+                        flag = 1;
+                    std::cout << "color yellow : " << flag << std::endl;
+				}
+
+
+
 			}
 		}
 
 		void display(){
 		    std:: cout << "displaying\n";
-
-            int top = 0;
-            float upperLeftX = 150;
-            float upperLeftY = 100;
-            for(int i = 0; i < scores.size(); i++){
-                std::cout << "setting score " << i+1 << std::endl;
-                names.at(i).setPosition(sf::Vector2f(upperLeftX, upperLeftY));
-                scores.at(i).setPosition(sf::Vector2f(upperLeftX+100, upperLeftY));
-                upperLeftY += 50;
-                if(upperLeftY > 600) break;
-                if(upperLeftX > 600) break;
-                top++;
-            }
-            std::cout << "TOP = " << top << std::endl;
-
 
             int flag = 0;
             while(!flag){
@@ -75,9 +91,10 @@ class hsManager
 
                 ///draw scores
                 if(!scores.empty()){
-                    for(size_t i = 0; i < top; ++i){
-                        window->draw(scores[i]);
-                        window->draw(names[i]);
+                    for(int i = 0; i < names.size(); ++i){
+                       // std::cout << "score: " << scores[i].getString().toAnsiString() << std::endl;
+                        window->draw(scores.at(i));
+                        window->draw(names.at(i));
                     }
                 }
                 window->display();
@@ -90,6 +107,7 @@ class hsManager
 
                 }
 			}
+			std::cout << "end display\n";
 		}
 
 	private:
