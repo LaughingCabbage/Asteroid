@@ -19,9 +19,11 @@ class hsManager
 		}
 
 		void setup(){
-			if(!m_font.loadFromFile("pixelmix.tff")){
-                std::cout << "failed to load font\n";
-			}
+
+		}
+
+		void setFont(sf::Font& gameFont){
+            m_font = gameFont;
 		}
 
 		void writeScore(int player_score, std::string player_name){

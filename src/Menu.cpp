@@ -45,7 +45,7 @@ void Menu::setup(){
         std::cout << "font load error\n";
     }
     HsManager.setWindow(menuWindow);
-    HsManager.setup();
+    HsManager.setFont(menuFont);
     addOption("Play", sf::Vector2f(400,150));
     addOption("Score", sf::Vector2f(400, 300));
     addOption("Options", sf::Vector2f(400, 450));
