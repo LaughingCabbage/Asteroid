@@ -46,17 +46,20 @@ class hsManager
 			ifs.open("hsList.dat");
 			if(ifs.is_open()){
 				std::string buffer = "";
-				while(!ifs.eof()){
-                    ifs >> buffer;
+				std::string buffer2 = "";
+
+				while(ifs >> buffer){
+                    std::cout << "buffer: " << buffer << std::endl;
                     sf::String str(buffer);
                     names.push_back(sf::Text(str, m_font));
-                    ifs >> buffer;
-                    sf::String str2(buffer);
+                    ifs >> buffer2;
+                    std::cout << "buffer: " << buffer2 << std::endl;
+                    sf::String str2(buffer2);
                     scores.push_back(sf::Text(str2, m_font));
 				}
 				std::cout << "done loading scores\n";
 				ifs.close();
-
+                std::cout << "size: " << scores.size() <<  std::endl;
                 float upperLeftX = 150;
                 float upperLeftY = 100;
                 for(int i = 0; i < names.size(); i++){
