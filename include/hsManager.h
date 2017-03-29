@@ -5,6 +5,26 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <fstream>
+#include <string>
+#include <sstream>
+
+class HighScore
+{
+    public:
+        HighScore(std::string& name, const std::string& score, int position){
+            std::ostringstream stream;
+            stream << position;
+            m_highScoreString =  stream.str() + ". " + name + score;
+            m_highScoreText.setString(m_highScoreString);
+        }
+        ~HighScore();
+
+    private:
+        std::string m_highScoreString;
+        std::string m_nameString;
+        sf::Text m_highScoreText;
+        sf::Text m_nameText;
+};
 
 
 class hsManager
@@ -47,15 +67,25 @@ class hsManager
 			if(ifs.is_open()){
 				std::string buffer = "";
 				std::string buffer2 = "";
-
+				std::string tmp = "";
+                char count = 49; //numbering for list
 				while(ifs >> buffer){
-                    std::cout << "buffer: " << buffer << std::endl;
+                    if(count == 59){
+                        buffer = std::string("10. ") + buffer;
+                    }else{
+                        buffer.insert(0, ". ");
+                        buffer.insert(0, (char*)count);
+                    }
+                    std::cout << "count: " << char(count) << std::endl;
+                    std::cout << "buffer: " << tmp << std::endl;
                     sf::String str(buffer);
                     names.push_back(sf::Text(str, m_font));
                     ifs >> buffer2;
                     std::cout << "buffer: " << buffer2 << std::endl;
                     sf::String str2(buffer2);
                     scores.push_back(sf::Text(str2, m_font));
+                    count++;
+                    if (count >= 59) break;     //limit to top 10 scores
 				}
 				std::cout << "done loading scores\n";
 				ifs.close();
@@ -66,8 +96,8 @@ class hsManager
                     std::cout << "setting score " << i+1 << std::endl;
                     names.at(i).setPosition(sf::Vector2f(upperLeftX, upperLeftY));
                     scores.at(i).setPosition(sf::Vector2f(upperLeftX+100, upperLeftY));
-                    names[i].setCharacterSize(10);
-                    scores[i].setCharacterSize(10);
+                    names[i].setCharacterSize(20);
+                    scores[i].setCharacterSize(20);
                     upperLeftY += 50;
                     if(upperLeftY > 600) break;
                     if(upperLeftX > 600) break;
